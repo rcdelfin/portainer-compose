@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+# set -e
 
 #!/usr/bin/env bash
 
@@ -98,6 +98,8 @@ copy_tpl() {
   sed -i -e "s/__DB_NAME__/wp_${PROJECT_NAME}/g" ${PROJECT_DIR}/.env
   sed -i -e "s/__DB_USER__/${PROJECT_NAME}/g" ${PROJECT_DIR}/.env
   sed -i -e "s/__DB_PASSWORD__/${DB_PASSWORD}/g" ${PROJECT_DIR}/.env
+
+  sed -i -e "s/__PROJECT_NAME__/${PROJECT_NAME}/g" ${PROJECT_DIR}/docker-compose.yaml
 
   rm ${PROJECT_DIR}/.env-e
 

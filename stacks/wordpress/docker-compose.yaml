@@ -11,7 +11,7 @@ networks:
     external: false
 
 services:
-  mysql:
+  __PROJECT_NAME___mysql:
     image: mysql:5.7
     container_name: ${PROJECT_NAME}_mysql
     volumes:
@@ -27,9 +27,9 @@ services:
     labels:
       - traefik.enable=false
 
-  blog:
+  __PROJECT_NAME___blog:
     depends_on:
-      - mysql
+      - ${PROJECT_NAME}_mysql
     image: wordpress:latest
     container_name: ${PROJECT_NAME}_blog
     restart: always
@@ -49,11 +49,11 @@ services:
       - internal
       - proxy
 
-  adminer:
+  __PROJECT_NAME___adminer:
     image: adminer:latest
     container_name: ${PROJECT_NAME}_adminer
     depends_on:
-      - mysql
+      - ${PROJECT_NAME}_mysql
     labels:
       - traefik.backend=adminer
       - traefik.frontend.rule=Host:db.$PROJECT_BASE_URL
