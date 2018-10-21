@@ -62,7 +62,7 @@ if [[ ! -z "$CATALOG_PATH" ]]; then
 fi
 mkdir -p ${PROJECT_DIR}
 
-DB_PASSWORD=`choose() { echo ${1:RANDOM%${#1}:1} $RANDOM; }
+PASSWORD=`choose() { echo ${1:RANDOM%${#1}:1} $RANDOM; }
 {
     choose '!@#$%^\&'
     choose '0123456789'
@@ -85,6 +85,7 @@ copy_tpl() {
 
   if [[ ! "$(ls -A $PROJECT_DIR)" ]]; then
     echo "Creating new project: ${PROJECT_NAME} to ${PROJECT_DIR}"
+    echo $PASSWORD > ${PROJECT_DIR}/passwrd
   else
     echo "Updating project: ${PROJECT_NAME} to ${PROJECT_DIR}"
   fi
@@ -98,6 +99,8 @@ copy_tpl() {
   sed -i -e "s/__DB_HOST__/${PROJECT_NAME}_mysql/g" ${PROJECT_DIR}/.env
   sed -i -e "s/__DB_NAME__/wp_${PROJECT_NAME}/g" ${PROJECT_DIR}/.env
   sed -i -e "s/__DB_USER__/${PROJECT_NAME}/g" ${PROJECT_DIR}/.env
+
+  DB_PASSWORD=`cat ${PROJECT_DIR}/passwrd`
   sed -i -e "s/__DB_PASSWORD__/${DB_PASSWORD}/g" ${PROJECT_DIR}/.env
 
   sed -i -e "s/__PROJECT_NAME__/${PROJECT_NAME}/g" ${PROJECT_DIR}/docker-compose.yaml
