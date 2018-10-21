@@ -56,8 +56,8 @@ do
 done
 
 # create site directory
-PROJECT_DIR=~/Projects/vhost/${PROJECT_NAME}
-if [[ -z "$CATALOG_PATH" ]]; then
+PROJECT_DIR=/var/www/vhosts/${PROJECT_NAME}
+if [[ ! -z "$CATALOG_PATH" ]]; then
   PROJECT_DIR=${CATALOG_PATH}/${PROJECT_NAME}
 fi
 mkdir -p ${PROJECT_DIR}
