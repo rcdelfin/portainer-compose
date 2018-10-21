@@ -95,6 +95,8 @@ copy_tpl() {
 
   sed -i -e "s/__PROJECT_NAME__/${PROJECT_NAME}/g" ${PROJECT_DIR}/.env
   sed -i -e "s/__PROJECT_BASE_URL__/${PROJECT_URL}/g" ${PROJECT_DIR}/.env
+  PROJECT_ADMINER_URL=`echo $PROJECT_URL | cut -d "," -f 1`
+  sed -i -e "s/__PROJECT_ADMINER_URL__/${PROJECT_ADMINER_URL}/g" ${PROJECT_DIR}/.env
 
   sed -i -e "s/__DB_HOST__/${PROJECT_NAME}_mysql/g" ${PROJECT_DIR}/.env
   sed -i -e "s/__DB_NAME__/wp_${PROJECT_NAME}/g" ${PROJECT_DIR}/.env

@@ -56,7 +56,7 @@ services:
       - ${PROJECT_NAME}_mysql
     labels:
       - traefik.backend=${PROJECT_NAME}_adminer
-      - traefik.frontend.rule=Host:db.$PROJECT_BASE_URL
+      - traefik.frontend.rule=Host:db.${PROJECT_ADMINER_URL}
       - traefik.docker.network=proxy
       - traefik.port=8080
     networks:
