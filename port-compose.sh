@@ -102,8 +102,6 @@ copy_tpl() {
 
   sed -i -e "s/__PROJECT_NAME__/${PROJECT_NAME}/g" ${PROJECT_DIR}/docker-compose.yaml
 
-  rm ${PROJECT_DIR}/.env-e
-
   if [[ ! -z "$AUTO_START_CONTAINER" ]]; then
     echo "Starting docker app.."
     cd ${PROJECT_DIR} && docker-compose up -d
