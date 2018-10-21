@@ -85,12 +85,11 @@ copy_tpl() {
 
   if [[ ! "$(ls -A $PROJECT_DIR)" ]]; then
     echo "Creating new project: ${PROJECT_NAME} to ${PROJECT_DIR}"
-
-    cp ${STACK_DIR}/wordpress/*.* ${PROJECT_DIR}/
   else
     echo "Updating project: ${PROJECT_NAME} to ${PROJECT_DIR}"
   fi
 
+  cp ${STACK_DIR}/wordpress/*.* ${PROJECT_DIR}/
   cp ${STACK_DIR}/wordpress/.env ${PROJECT_DIR}/
 
   sed -i -e "s/__PROJECT_NAME__/${PROJECT_NAME}/g" ${PROJECT_DIR}/.env
