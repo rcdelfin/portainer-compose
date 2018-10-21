@@ -64,7 +64,7 @@ mkdir -p ${PROJECT_DIR}
 
 PASSWORD=`choose() { echo ${1:RANDOM%${#1}:1} $RANDOM; }
 {
-    choose '!@#$%^\&'
+    choose '!@%^&'
     choose '0123456789'
     choose 'abcdefghijklmnopqrstuvwxyz'
     choose 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
