@@ -83,9 +83,11 @@ copy_tpl() {
   fi
   echo "Stack directory: ${STACK_DIR}"
 
+  IS_NEW_PROJECT=0
   if [[ ! "$(ls -A $PROJECT_DIR)" ]]; then
     echo "Creating new project: ${PROJECT_NAME} to ${PROJECT_DIR}"
     echo $PASSWORD > ${PROJECT_DIR}/passwrd
+    IS_NEW_PROJECT=1
   else
     echo "Updating project: ${PROJECT_NAME} to ${PROJECT_DIR}"
   fi
@@ -110,6 +112,13 @@ copy_tpl() {
   if [[ ! -z "$AUTO_START_CONTAINER" ]]; then
     echo "Starting docker app.."
     cd ${PROJECT_DIR} && docker-compose up -d
+  fi
+
+  if [[ $IS_NEW_PROJECT ]]; then
+    echo ""
+    echo "Please save this Environment variables for the ${PROJECT_NAME} project"
+    cat ${PROJECT_DIR}/.env
+    echo ""
   fi
 
   echo "Done"
