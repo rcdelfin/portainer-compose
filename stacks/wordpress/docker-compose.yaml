@@ -1,0 +1,62 @@
+version: '3.3'
+
+volumes:
+  codebase:
+    driver: local
+
+networks:
+  proxy:
+    external: true
+  internal:
+    external: false
+
+services:
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./dbdata:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+      MYSQL_DATABASE: $DB_NAME
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
+
+  blog:
+    depends_on:
+      - mysql
+    image: wordpress:latest
+    container_name: $PROJECT_NAME
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: $DB_HOST:3306
+      WORDPRESS_DB_NAME: $DB_NAME
+      WORDPRESS_DB_USER: $DB_USER
+      WORDPRESS_DB_PASSWORD: $DB_PASSWORD
+    volumes:
+      - codebase:/var/www/html
+    labels:
+      - traefik.backend=blog
+      - traefik.frontend.rule=Host:$PROJECT_BASE_URL
+      - traefik.docker.network=proxy
+      - traefik.port=80
+    networks:
+      - internal
+      - proxy
+
+  adminer:
+    image: adminer:latest
+    depends_on:
+      - mysql
+    labels:
+      - traefik.backend=adminer
+      - traefik.frontend.rule=Host:db.$PROJECT_BASE_URL
+      - traefik.docker.network=proxy
+      - traefik.port=8080
+    networks:
+      - internal
+      - proxy
