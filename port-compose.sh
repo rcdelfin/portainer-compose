@@ -78,6 +78,9 @@ DB_PASSWORD=`choose() { echo ${1:RANDOM%${#1}:1} $RANDOM; }
 copy_tpl() {
 
   STACK_DIR=$(pwd)/stacks
+  if [[ ! -z "$STACK_TEMPLATE_PATH" ]]; then
+    STACK_DIR=$STACK_TEMPLATE_PATH
+  fi
   echo "Stack directory: ${STACK_DIR}"
 
   if [[ ! "$(ls -A $PROJECT_DIR)" ]]; then
