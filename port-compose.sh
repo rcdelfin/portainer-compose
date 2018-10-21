@@ -114,10 +114,12 @@ copy_tpl() {
     cd ${PROJECT_DIR} && docker-compose up -d
   fi
 
-  if [[ $IS_NEW_PROJECT ]]; then
+  if [[ "$IS_NEW_PROJECT" -eq 1 ]]; then
     echo ""
-    echo "Please save this Environment variables for the ${PROJECT_NAME} project"
+    echo "Please save this Environment variables for the ${PROJECT_NAME} project:"
+    echo "--------------------------"
     cat ${PROJECT_DIR}/.env
+    echo "--------------------------"
     echo ""
   fi
 
