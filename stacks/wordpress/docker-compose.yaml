@@ -41,7 +41,7 @@ services:
     volumes:
       - codebase:/var/www/html
     labels:
-      - traefik.backend=blog
+      - traefik.backend=${PROJECT_NAME}_blog
       - traefik.frontend.rule=Host:${PROJECT_BASE_URL}
       - traefik.docker.network=proxy
       - traefik.port=80
@@ -55,7 +55,7 @@ services:
     depends_on:
       - ${PROJECT_NAME}_mysql
     labels:
-      - traefik.backend=adminer
+      - traefik.backend=${PROJECT_NAME}_adminer
       - traefik.frontend.rule=Host:db.$PROJECT_BASE_URL
       - traefik.docker.network=proxy
       - traefik.port=8080
