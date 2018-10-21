@@ -98,8 +98,10 @@ copy_tpl() {
 
   rm ${PROJECT_DIR}/.env-e
 
-  echo "Starting docker app.."
-  cd ${PROJECT_DIR} && docker-compose up -d
+  if [[ ! -z "$AUTO_START_CONTAINER" ]]; then
+    echo "Starting docker app.."
+    cd ${PROJECT_DIR} && docker-compose up -d
+  fi
 
   echo "Done"
 }
